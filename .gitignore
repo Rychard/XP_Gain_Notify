@@ -1,0 +1,2 @@
+# Ignore kdiff3 file backups
+**/*.orig

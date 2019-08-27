@@ -1,0 +1,9 @@
+## Interface: 11200
+## Title: XP Gain Notify
+## Version: 1.2
+## Author: Dissonance (AKA Caelus)
+## Notes: Alerts you of Experience gained (Quest Completion or Mob Kill) with a nifty chat message.
+## LoadOnDemand: 0
+## DefaultState: Enabled
+## SavedVariables: XGNConfig
+XP_Gain_Notify.xml

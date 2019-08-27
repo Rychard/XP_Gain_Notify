@@ -1,0 +1,16 @@
+<!-- XP Gain Notify (XGN for short) -->
+<!-- *By Dissonance (AKA Caelus)* -->
+
+<!-- Note to others: This is the XML Schema - Don't change this! -->
+
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ C:\Projects\WoW\Bin\Interface\FrameXML\UI.xsd">
+  <Script file="XP_Gain_Notify.lua"/>
+  <!--   A main frame is REQUIRED.  -->
+  <Frame name="XGNFrame">
+    <!-- Have to add my events here, or else my addon is useless! -->
+    <Scripts>
+      <OnLoad> XGN.OnLoad(); </OnLoad>
+      <OnEvent> XGN.OnEvent(event, a1, a2, a3, a4, a5, a6, a7) </OnEvent>
+    </Scripts>
+  </Frame>
+</Ui>

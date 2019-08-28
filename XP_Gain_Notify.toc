@@ -1,4 +1,4 @@
-## Interface: 40000
+## Interface: 11302
 ## Title: XP Gain Notify
 ## Version: 1.7
 ## Author: Dissonance (AKA Caelus)

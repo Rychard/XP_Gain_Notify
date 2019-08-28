@@ -8,13 +8,17 @@
     XGN.repetition = nil;
     XGN.exptogo = nil;
     XGN.msg = nil;
-    XGN.on = nil;
-    XGN.variablesloaded = nil;
-    XGN.default_on = true;
-    XGN.default_channel = 1;
-    XGN.default_red = 1;
-    XGN.default_blue = 1;
-    XGN.default_green = 1;
+
+    XGN.pct85 = "|cFFFF8000";
+    XGN.pct70 = "|cFFA335EE";
+    XGN.pct55 = "|cFF0070DE";
+    XGN.pct40 = "|cFF1EFF00";
+    XGN.pct25 = "|cFFFFFFFF";
+    XGN.pct00 = "|cFFFFFFFF";
+
+  XGN_version = "v1.7";
+  XGN_versionDate = "11/29/2010";
+  XGN_debug = false;
 
 -- Hook into the WoW API by setting our addon code to execute on certain events.
 function XGN_OnLoad()
@@ -28,13 +32,14 @@ function XGN_OnEvent(self, event, ...)
     XGN_ExperienceUpdate();
   elseif (event == "VARIABLES_LOADED") then
     XGN.currxp = UnitXP("player");
-    XGN_AddMessage("<XGN> Experience Gain Notify v1.5 Loaded.");
+    local version = " |cFF1EFF00" .. XGN_version .. "|r [|cFF1EFF00" .. XGN_versionDate .. "|r] ";
+    XGN_AddMessage("Experience Gain Notify" .. version .. "Loaded.");
   end
 end
 
 function XGN_ExperienceUpdate()
   XGN.percentxp = ((floor((UnitXP("player") / UnitXPMax("player")) * 10000)) / 100);
-    XGN.prevxp = XGN.currxp;
+  XGN.prevxp = XGN.currxp;
   XGN.currxp = UnitXP("player");
   XGN.xpgain = (XGN.currxp - XGN.prevxp);
   XGN.exptogo = (UnitXPMax("player") - UnitXP("player"));
@@ -67,40 +72,40 @@ function XGN_ExperienceUpdate()
       -- Repititions till level
       XGN.msg = XGN.msg..XGN.repetition.." Repetitions."
       -- Write message to chat window.
-      XGN_AddMessage(XGN.msg, false);
-    end
-  end
-end
+      XGN_AddMessage(XGN.msg);
 
--- This has hard-coded chat frames in it.  Change it later.
+      -- Now that we've outputted our character's XP information...
+      -- I think it would be nice to do the same for our pet.  (Hunters only!)
+
+      local cClass = UnitClass("player");
+      if(cClass == "Hunter" and UnitExists("pet")) then
+        local cLevel = UnitLevel("player");
+        local pLevel = UnitLevel("pet");
+
+        if(pLevel < cLevel) then
+          local petXP_curr, petXP_next = GetPetExperience();
+          local petXP_togo = petXP_next - petXP_curr;
+          local petXP_percent = (floor((petXP_curr / petXP_next) * 10000) / 100);
+          local petXP_repetition = ceil(petXP_togo / XGN.xpgain);
+          local petXP_msg = "|cFF1EFF00<PET>|r +"..XGN.xpgain.."XP. ("..petXP_percent.."%) "..petXP_togo.."XP to go. "..petXP_repetition.." Repetitions."
+          XGN_AddMessage(petXP_msg);
+        end -- end if
+      end -- end if
+    end -- end if
+  end -- end if
+end -- end function
+
 function XGN_AddMessage(msg, label, red, green, blue)
   if (not red) then red = 1
   elseif (not green) then green = 1
   elseif (not blue) then blue = 1
   elseif (not label) then label = false
   end
-  if ( not label ) then
+  if ( label ) then
     ChatFrame1:AddMessage(msg, red, green, blue);
   else
-    ChatFrame1:AddMessage("XGN: " .. msg, red, green, blue);
+    msg = "|cFF1EFF00<XGN>|r " .. msg;
+    ChatFrame1:AddMessage(msg, red, green, blue);
   return 1;
   end
-end
-
-function XGN_TestColors()
-  XGN.pct85 = "|cFFFF8000";
-  XGN.pct70 = "|cFFA335EE";
-  XGN.pct55 = "|cFF0070DE";
-  XGN.pct40 = "|cFF1EFF00";
-  XGN.pct25 = "|cFFFFFFFF";
-  XGN.pct00 = "|cFFFFFFFF";
-  XGN_AddMessage("<XGN> Test.");
-  XGN_AddMessage(XGN.pct85.."+1XP. (85%) 15XP to go.  15 Repititions.|r");
-  XGN_AddMessage(XGN.pct70.."+1XP. (70%) 30XP to go.  30 Repititions.|r");
-  XGN_AddMessage(XGN.pct55.."+1XP. (55%) 45XP to go.  45 Repititions.|r");
-  XGN_AddMessage(XGN.pct40.."+1XP. (40%) 60XP to go.  60 Repititions.|r");
-  XGN_AddMessage(XGN.pct25.."+1XP. (25%) 75XP to go.  75 Repititions.|r");
-  XGN_AddMessage(XGN.pct00.."+1XP. (1%) 99XP to go.  99 Repititions.|r");
-  XGN_AddMessage("<XGN> End Test.");
-  return 0;
 end

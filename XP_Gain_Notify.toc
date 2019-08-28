@@ -1,6 +1,6 @@
-## Interface: 30200
+## Interface: 40000
 ## Title: XP Gain Notify
-## Version: 1.4
+## Version: 1.5
 ## Author: Dissonance (AKA Caelus)
 ## Notes: Alerts you of Experience gained (Quest Completion or Mob Kill) with a nifty chat message.
 ## LoadOnDemand: 0

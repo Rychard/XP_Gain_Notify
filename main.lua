@@ -1,7 +1,7 @@
 local _, XGN = ...
 
-XGN.version = "v2.0-alpha"
-XGN.versionDate = "9/2/2019"
+XGN.version = "v2.0.1-alpha"
+XGN.versionDate = "9/16/2019"
 
 XGN.xpLast = 0
 XGN.xpLastPet = 0
@@ -51,5 +51,5 @@ end
 
 XGN.Update = function(current, target, gained)
     UpdatePlayer(current, target, gained)
-    UpdatePet()
+    UpdatePet(gained)
 end

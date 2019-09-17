@@ -1,6 +1,6 @@
 ## Interface: 11302
 ## Title: XP Gain Notify
-## Version: 2.0-alpha
+## Version: 2.0.1-alpha
 ## Author: Rychard
 ## Notes: Alerts you of Experience gained (Quest Completion or Mob Kill) with a nifty chat message.
 ## LoadOnDemand: 0

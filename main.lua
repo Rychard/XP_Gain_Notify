@@ -1,7 +1,7 @@
 local _, XGN = ...
 
-XGN.version = "v2.0.1-alpha"
-XGN.versionDate = "9/16/2019"
+XGN.version = "v2.0.2-alpha"
+XGN.versionDate = "9/17/2019"
 
 XGN.xpLast = 0
 XGN.xpLastPet = 0
@@ -39,6 +39,9 @@ local function UpdatePet(gained)
     local percent = (floor((current / target) * 10000) / 100)
     local remaining = target - current
     local repetitions = ceil(remaining / gained)
+
+    -- When the player levels up, this is calculated as 'inf', so we have to capture it.
+    if repetitions == math.huge then return end
 
     local msgGained = XGN.ColorText(string.format("%sXP", gained), percent)
     local msgPercent = XGN.ColorText(string.format("%.2f%%", percent), percent)
